@@ -1,0 +1,16 @@
+<p class="title">{{film.title}}</p>
+<div class="film-body">
+    <img src="https://image.tmdb.org/t/p/w200{{film.poster_path}}">
+    <div class="film-info">
+      <p>{{film.overview}}</p>
+      <p>Премьера : {{film.release_date}}</p>
+      <div class="genres">
+        <p>Жанры : </p>
+        <ul>
+          <li *ngFor="let genre of film.genre_ids">
+            {{genre}}
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>

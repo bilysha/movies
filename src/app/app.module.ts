@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { GenresListComponent } from './genres-list.conponent/genres-list.conponent';
 import { FilmsListComponent } from './films-list.component/films-list.component';
+import { FilmItemComponent } from './films-list.component/film-item.component/film-item.component';
 
 import { RequestService } from './services/request.service';
 
@@ -14,7 +15,8 @@ import { RequestService } from './services/request.service';
   declarations: [
     AppComponent,
     GenresListComponent,
-    FilmsListComponent
+    FilmsListComponent,
+    FilmItemComponent
   ],
   imports: [
     BrowserModule,

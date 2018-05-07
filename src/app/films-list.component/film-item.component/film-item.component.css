@@ -1,0 +1,54 @@
+.title {
+  border-bottom: 2px solid #F2481D;
+  color: rgb(200, 200, 200);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.5s;
+}
+
+.title:hover {
+  color: #F2481D;
+  transition: color 0.5s;
+}
+
+.film-body {
+  display: flex;
+  margin: 10px 0;
+  padding: 20px;
+}
+
+.film-body img {
+  margin-right: 10px;
+}
+
+.film-body p {
+  line-height: 20px;
+  margin-bottom: 10px;
+  color: rgb(200, 200, 200);
+}
+
+.genres {
+  display: flex;
+}
+
+.genres p {
+  margin-right: 20px;
+}
+
+.genres ul li {
+  line-height: 20px;
+  cursor: pointer;
+  color: rgb(200, 200, 200);
+  transition: color 0.5s;
+}
+
+.genres ul li:before {
+  content: '-';
+}
+
+.genres ul li:hover {
+  text-decoration: underline;
+  color: #F2481D;
+  transition: color 0.5s;
+}
