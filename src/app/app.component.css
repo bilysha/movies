@@ -29,6 +29,15 @@ header a img {
   cursor: pointer;
 }
 
+main {
+  display: flex;
+}
+
+genres-list {
+  width: 20%;
+  background-color: rgb(36, 36, 36);
+}
+
 footer {
   position: absolute;
   left: 0;

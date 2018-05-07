@@ -1,8 +1,8 @@
 <p *ngIf="!genres.length" style="color: #fff">No Genres !!! </p>
 
-<div  *ngIf="genres.length">
-    <p *ngFor="let genre of genres">
-        {{genre.name}}
-      </p>
-</div>
+<ul  *ngIf="genres.length">
+  <li *ngFor="let genre of genres">
+    {{genre.name}}
+  </li>
+</ul>
 

@@ -17,4 +17,9 @@ export class RequestService {
     .toPromise();
   }
 
+  sendRequest(filter: String) {
+    return this.http.get('https://api.themoviedb.org/3/movie/' + filter + '?page=1&language=ru-RU&api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
+    .toPromise();
+  }
+
 }
