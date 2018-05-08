@@ -1,0 +1,74 @@
+.title {
+  font-size: 24px;
+  color: #fff;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F2481D;
+}
+
+.common-information {
+  margin: 20px 0;
+  position: relative;
+}
+
+.common-information img {
+  width: 100%;
+  height: 400px;
+}
+
+.common-information .tagline {
+  font-size: 24px;
+  color: #fff;
+}
+
+.votes {
+  font-size: 20px;
+  color: rgb(200, 200, 200);
+  margin-left: 20px;
+}
+
+.votes p {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.overview {
+  line-height: 24px;
+  font-size: 18px;
+  color: rgb(200, 200, 200);
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F2481D;
+  margin-bottom: 20px;
+}
+
+.companies {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F2481D;
+  margin-bottom: 20px;
+}
+
+.companies p {
+  font-size: 20px;
+  color: rgb(200, 200, 200);
+  margin-bottom: 10px;
+}
+
+.companies ul li {
+  font-size: 18px;
+  line-height: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: rgb(200, 200, 200);
+  transition: color 0.5s;
+}
+
+.companies ul li:before {
+  content: '-';
+}
+
+.companies ul li:hover {
+  text-decoration: underline;
+  color: #F2481D;
+  transition: color 0.5s;
+}
+
+

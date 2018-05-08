@@ -1,1 +1,1 @@
-<film-item *ngFor="let film of films.results" [film]="film"></film-item>
+<film-item *ngFor="let film of films" [film]="film" (click)="openFilm(film.id)"></film-item>

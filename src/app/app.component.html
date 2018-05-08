@@ -2,11 +2,11 @@
   <div class="content">
     <header>
       <div class="center">
-        <a><img src="./resourses/logo.gif" alt="site logotip">Logo</a>
+        <a><img src="./resourses/logo.gif" alt="site logotip">F<span>I</span>lms<span>y</span></a>
       </div>
     </header>
     <main class="center">
-      <genres-list></genres-list>
+      <genres-list [genres]="genres"></genres-list>
       <div class="films-container">
         <router-outlet></router-outlet>
       </div>

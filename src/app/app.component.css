@@ -37,6 +37,10 @@ header a img {
   cursor: pointer;
 }
 
+header a span {
+  color: #F2481D;
+}
+
 main {
   display: flex;
 }

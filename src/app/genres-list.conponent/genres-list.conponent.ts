@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RequestService } from '../services/request.service';
 
 @Component({
@@ -9,14 +9,6 @@ import { RequestService } from '../services/request.service';
 })
 export class GenresListComponent {
 
-  genres: any;
+  @Input() genres: any;
 
-  constructor(private requestService: RequestService) {
-    this.genres = [];
-  }
-
-  ngOnInit() {
-    this.requestService.uploadGenres()
-    .then(res => this.genres = res.json().genres);
-  }
 }

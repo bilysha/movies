@@ -1,0 +1,21 @@
+<p style="color: #fff" *ngIf="isEmpty">Loading information ... </p>
+<section *ngIf="!isEmpty">
+  <p class="title">{{film.title}}</p>
+  <div class="common-information">
+      <img src="https://image.tmdb.org/t/p/original{{film.backdrop_path}}">
+      <p class="tagline">{{film.tagline}}</p>
+      <div class="votes">
+        <p>{{film.vote_average}} / 10 ( {{film.vote_count}} votes total )</p>
+      </div>
+  </div>
+  <p class="overview">{{film.overview}}</p>
+  <div class="companies">
+    <p>Компании : </p>
+    <ul>
+      <li *ngFor="let company of film.production_companies">
+        {{company.name}}
+      </li>
+    </ul>
+  </div>
+
+</section>

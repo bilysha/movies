@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RequestService } from './services/request.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  genres: any;
+
+  constructor(private requestService: RequestService) {
+    this.genres = [];
+  }
+
+  ngOnInit() {
+    if (!this.genres.length) {
+      this.requestService.uploadGenres()
+      .then(res => this.genres = res.json().genres);
+    }
+  }
 }

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { GenresListComponent } from './genres-list.conponent/genres-list.conponent';
 import { FilmsListComponent } from './films-list.component/films-list.component';
 import { FilmItemComponent } from './films-list.component/film-item.component/film-item.component';
+import { FilmDetailComponent } from './film-detail.component/film-detail.component';
 
 import { RequestService } from './services/request.service';
 
@@ -16,7 +17,8 @@ import { RequestService } from './services/request.service';
     AppComponent,
     GenresListComponent,
     FilmsListComponent,
-    FilmItemComponent
+    FilmItemComponent,
+    FilmDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -24,13 +26,15 @@ import { RequestService } from './services/request.service';
     HttpModule,
     RouterModule.forRoot([
       {path: 'popular', component: FilmsListComponent},
-      {path: 'popular/:id', component: FilmsListComponent},
       {path: 'top_rated', component: FilmsListComponent},
       {path: 'latest', component: FilmsListComponent},
+      {path: 'detail/:id', component: FilmDetailComponent},
       {path: '', pathMatch: 'full', redirectTo: 'popular'}
     ])
   ],
-  providers: [RequestService],
+  providers: [
+    RequestService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
