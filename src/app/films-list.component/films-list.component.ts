@@ -51,10 +51,4 @@ export class FilmsListComponent {
     }
   }
 
-  openFilm(id: Number) {
-    this.router.navigate(['detail', id]);
-    console.log(id);
-    this.requestService.uploadFilm(id);
-  }
-
 }

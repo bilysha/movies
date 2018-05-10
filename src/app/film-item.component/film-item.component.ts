@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { RequestService } from '../services/request.service';
 
 @Component({
   moduleId: module.id,
@@ -9,6 +11,9 @@ import { Component, Input } from '@angular/core';
 export class FilmItemComponent {
   @Input() film: any;
 
+  constructor(private router: Router,
+              private requestService: RequestService
+            ) {}
   ngOnInit() {
     if (this.film.overview) {
       if (this.film.overview.length > 300) {
@@ -19,4 +24,11 @@ export class FilmItemComponent {
       this.film.overview = 'У данного фильма отсутствует описание.';
     }
   }
+
+  openFilm(id: Number) {
+    this.router.navigate(['detail', id]);
+    console.log(id);
+    this.requestService.uploadFilm(id);
+  }
+
 }

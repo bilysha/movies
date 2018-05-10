@@ -1,13 +1,20 @@
 .title {
   font-size: 24px;
   color: #fff;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #F2481D;
 }
 
-.common-information {
-  margin: 20px 0;
-  position: relative;
+article {
+  color: rgb(200, 200, 200);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #F2481D;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.subtitle {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .common-information img {
@@ -15,49 +22,16 @@
   height: 400px;
 }
 
-.common-information .tagline {
-  font-size: 24px;
-  color: #fff;
-}
-
-.votes {
-  font-size: 20px;
-  color: rgb(200, 200, 200);
-  margin-left: 20px;
-}
-
 .votes p {
   text-align: center;
   margin: 10px 0;
 }
 
-.overview {
-  line-height: 24px;
-  font-size: 18px;
-  color: rgb(200, 200, 200);
-  padding-bottom: 20px;
-  border-bottom: 1px solid #F2481D;
-  margin-bottom: 20px;
-}
-
-.companies {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #F2481D;
-  margin-bottom: 20px;
-}
-
-.companies p {
-  font-size: 20px;
-  color: rgb(200, 200, 200);
-  margin-bottom: 10px;
-}
-
-.companies ul li {
+ul li {
   font-size: 18px;
   line-height: 24px;
   margin-left: 10px;
   cursor: pointer;
-  color: rgb(200, 200, 200);
   transition: color 0.5s;
 }
 
@@ -65,10 +39,35 @@
   content: '-';
 }
 
-.companies ul li:hover {
+ul li:hover, .collection-name:hover {
   text-decoration: underline;
   color: #F2481D;
   transition: color 0.5s;
 }
 
+.collection-name {
+  margin: 0 0 10px 10px;
+  cursor: pointer;
+  transition: color 0.5s;
+}
 
+.collection ul {
+  display: flex;
+}
+
+.collection ul li {
+  margin-right: 20px;
+}
+
+.collection figure figcaption {
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.collection figure img {
+  width: 100px;
+  height: 150px;
+  margin: 0 auto;
+  display: block;
+}

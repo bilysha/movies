@@ -5,9 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { FilmsCollectionComponent } from './films-collection.component/films-collection.component';
 import { GenresListComponent } from './genres-list.conponent/genres-list.conponent';
 import { FilmsListComponent } from './films-list.component/films-list.component';
-import { FilmItemComponent } from './films-list.component/film-item.component/film-item.component';
+import { FilmItemComponent } from './film-item.component/film-item.component';
 import { FilmDetailComponent } from './film-detail.component/film-detail.component';
 
 import { RequestService } from './services/request.service';
@@ -15,6 +16,7 @@ import { RequestService } from './services/request.service';
 @NgModule({
   declarations: [
     AppComponent,
+    FilmsCollectionComponent,
     GenresListComponent,
     FilmsListComponent,
     FilmItemComponent,
@@ -29,6 +31,7 @@ import { RequestService } from './services/request.service';
       {path: 'top_rated', component: FilmsListComponent},
       {path: 'latest', component: FilmsListComponent},
       {path: 'detail/:id', component: FilmDetailComponent},
+      {path: 'collection/:id', component: FilmsCollectionComponent},
       {path: '', pathMatch: 'full', redirectTo: 'popular'}
     ])
   ],

@@ -1,21 +1,46 @@
-<p style="color: #fff" *ngIf="isEmpty">Loading information ... </p>
-<section *ngIf="!isEmpty">
-  <p class="title">{{film.title}}</p>
-  <div class="common-information">
+<p style="color: #fff" *ngIf="isEmptyFilm">Loading information ... </p>
+<section *ngIf="!isEmptyFilm">
+
+  <article>
+    <p class="title">{{film.title}}</p>
+  </article>
+
+  <article class="common-information">
+      <p class="subtitle">{{film.tagline}}</p>
       <img src="https://image.tmdb.org/t/p/original{{film.backdrop_path}}">
-      <p class="tagline">{{film.tagline}}</p>
       <div class="votes">
         <p>{{film.vote_average}} / 10 ( {{film.vote_count}} votes total )</p>
       </div>
-  </div>
-  <p class="overview">{{film.overview}}</p>
-  <div class="companies">
-    <p>Компании : </p>
+      <p class="overview">{{film.overview}}</p>
+  </article>
+
+  <article class="companies">
+    <p class="subtitle">Companies : </p>
     <ul>
       <li *ngFor="let company of film.production_companies">
         {{company.name}}
       </li>
     </ul>
-  </div>
+  </article>
+
+  <article class="collection" *ngIf="film.belongs_to_collection">
+    <div *ngIf="isEmptyCollection">
+      <p>Loading collection information ... </p>
+    </div>
+    <div *ngIf="!isEmptyCollection">
+      <p class="subtitle">Collection : </p>
+      <p class="collection-name" (click)="openCollection(collection.id)">{{collection.name}} : </p>
+      <ul>
+        <li *ngFor="let part of collection.parts">
+          <figure>
+            <img src="https://image.tmdb.org/t/p/w200{{part.poster_path}}">
+            <figcaption (click)="openFilm(part.id)">
+              {{part.title}}
+              </figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+  </article>
 
 </section>

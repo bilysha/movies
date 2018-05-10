@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RequestService } from '../services/request.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import '../../shared/lang';
 
 @Component({
   moduleId: module.id,
@@ -11,20 +13,44 @@ import { ActivatedRoute } from '@angular/router';
 export class FilmDetailComponent {
 
   film: any;
-  isEmpty: Boolean;
+  isEmptyFilm: Boolean;
+  isEmptyCollection: Boolean;
+  collection: any;
+
   constructor(private requestService: RequestService,
+              private router: Router,
               private activatedRoute: ActivatedRoute
-            ) {
-    this.isEmpty = true;
+              ) {
+    this.isEmptyFilm = true;
+    this.isEmptyCollection = true;
   }
 
   ngOnInit() {
+    this.film = [];
     const filmId: any = this.activatedRoute.snapshot.url[1];
     this.requestService.uploadFilm(filmId)
     .then(res => {
       this.film = res.json();
-      console.log(this.film);
-      this.isEmpty = false;
+      if (this.film.belongs_to_collection) {
+        this.requestService.uploadCollection(this.film.belongs_to_collection.id)
+        .then(res => {
+          this.collection = res.json();
+          console.log(this.collection);
+          this.isEmptyCollection = false;
+        });
+      }
+      this.isEmptyFilm = false;
     });
   }
+
+  openFilm(id: Number) {
+    //this.router.navigate(['detail', id]);
+    console.log('openfilm')
+    //this.ngOnInit();
+  }
+
+  openCollection(id: Number) {
+    this.router.navigate(['collection', id]);
+  }
+
 }
