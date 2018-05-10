@@ -17,7 +17,7 @@
   <article class="companies">
     <p class="subtitle">Companies : </p>
     <ul>
-      <li *ngFor="let company of film.production_companies">
+      <li *ngFor="let company of film.production_companies" (click)="openCompany(company.id)">
         {{company.name}}
       </li>
     </ul>

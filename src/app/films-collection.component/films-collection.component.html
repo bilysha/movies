@@ -1,1 +1,12 @@
-<p>Collection component</p>
+<p *ngIf="isEmptyCollection">Loading collection information ... </p>
+
+<section *ngIf="!isEmptyCollection">
+  <p class="title">{{collection.name}}</p>
+  <div>
+    <img src="https://image.tmdb.org/t/p/original{{collection.backdrop_path}}">
+  </div>
+  <p class="subtitle">Overview : </p>
+  <p class="overview">{{collection.overview}}</p>
+  <p class="subtitle">Films : </p>
+  <film-item *ngFor="let film of collection.parts" [film]="film"></film-item>
+</section>

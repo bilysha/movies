@@ -53,4 +53,9 @@ export class FilmDetailComponent {
     this.router.navigate(['collection', id]);
   }
 
+  openCompany(id: Number) {
+    this.requestService.uploadCompany(id)
+    .then(res => console.log(res.json()));
+  }
+
 }

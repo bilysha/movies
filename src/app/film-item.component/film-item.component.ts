@@ -14,6 +14,7 @@ export class FilmItemComponent {
   constructor(private router: Router,
               private requestService: RequestService
             ) {}
+
   ngOnInit() {
     if (this.film.overview) {
       if (this.film.overview.length > 300) {

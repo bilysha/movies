@@ -1,10 +1,24 @@
+section:hover {
+  background-color: rgb(15, 15, 15);
+  transition: background-color 0.5s;
+}
+
+section {
+  border-top: 2px solid rgb(30, 30, 30);
+  border-bottom: 2px solid rgb(30, 30, 30);
+  margin: 10px 0;
+  padding: 0 20px;
+  transition: background-color 0.5s;
+}
+
 .title {
-  border-bottom: 2px solid #F2481D;
+  border-bottom: 1px solid #F2481D;
   color: rgb(200, 200, 200);
   font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   transition: color 0.5s;
+  padding: 10px 0;
 }
 
 .title:hover {
@@ -15,6 +29,7 @@
 .film-body {
   display: flex;
   margin: 10px 0;
+  margin-bottom: 20px;
   padding: 20px;
 }
 

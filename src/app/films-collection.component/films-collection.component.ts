@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { RequestService } from '../services/request.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -8,6 +10,27 @@ import { Component, Input } from '@angular/core';
 })
 export class FilmsCollectionComponent {
 
-  @Input() collection: any;
+  collection: any;
+  isEmptyCollection: Boolean;
+
+  constructor(private requestService: RequestService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute
+              ) {
+    this.collection = {};
+    this.isEmptyCollection = true;
+  }
+
+  ngOnInit() {
+    const collectionId: any = this.activatedRoute.snapshot.url[1];
+    console.log(collectionId);
+    this.requestService.uploadCollection(collectionId)
+    .then(res => {
+      this.collection = res.json();
+      console.log(this.collection);
+      this.isEmptyCollection = false;
+    });
+  }
+
 
 }
