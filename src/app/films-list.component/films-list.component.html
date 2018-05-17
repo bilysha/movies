@@ -1,1 +1,29 @@
-<film-item *ngFor="let film of films" [film]="film"></film-item>
+<article class="buttons-container">
+    <a *ngFor="let filter of filters"[ngClass]="{'active':filter.key === title}" routerLink="/{{filter.key}}/page/1">{{filter.name}}</a>
+  </article>
+
+<ul>
+  <li *ngFor="let film of films">
+    <film-item  [film]="film"></film-item>
+  </li>
+</ul>
+
+<nav *ngIf="films.length > 0">
+  <ul>
+    <li (click)="setPage(1)" [ngClass]="{'active' : activePage === 1 }">
+      1
+    </li>
+    <li class="many-pages" *ngIf="showFirstPart">
+      ...
+    </li>
+    <li *ngFor="let page of possiblePages" (click)="setPage(page)" [ngClass]="{'active' : activePage === page}">
+      {{page}}
+    </li>
+    <li class="many-pages" *ngIf="showSecondPart">
+      ...
+    </li>
+    <li (click)="setPage(totalPages)" [ngClass]="{'active' : activePage === totalPages}" >
+      {{totalPages}}
+    </li>
+  </ul>
+</nav>

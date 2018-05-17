@@ -27,7 +27,6 @@ export class FilmsCollectionComponent {
     this.requestService.uploadCollection(collectionId)
     .then(res => {
       this.collection = res.json();
-      console.log(this.collection);
       this.isEmptyCollection = false;
     });
   }

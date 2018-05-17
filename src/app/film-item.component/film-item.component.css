@@ -12,7 +12,8 @@ section {
 }
 
 .title {
-  border-bottom: 1px solid #F2481D;
+  display: block;
+  border-bottom: 1px solid #A9C67C;
   color: rgb(200, 200, 200);
   font-size: 24px;
   font-weight: bold;
@@ -22,7 +23,7 @@ section {
 }
 
 .title:hover {
-  color: #F2481D;
+  color: #A9C67C;
   transition: color 0.5s;
 }
 
@@ -51,19 +52,20 @@ section {
   margin-right: 5px;
 }
 
-.genres ul li {
+.genres ul li a{
   line-height: 20px;
   cursor: pointer;
   color: rgb(200, 200, 200);
   transition: color 0.5s;
 }
 
-.genres ul li:before {
+.genres ul li a:before {
   content: '-';
+  margin: 0 5px;
 }
 
-.genres ul li:hover {
+.genres ul li a:hover {
   text-decoration: underline;
-  color: #F2481D;
+  color: #A9C67C;
   transition: color 0.5s;
 }

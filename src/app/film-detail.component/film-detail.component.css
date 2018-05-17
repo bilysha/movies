@@ -8,9 +8,10 @@ article {
   padding: 0 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #F2481D;
+  border-bottom: 1px solid #A9C67C;
   font-size: 20px;
   line-height: 24px;
+  font-family: 'Cabin', sans-serif;
 }
 
 .subtitle {
@@ -39,35 +40,58 @@ ul li {
   content: '-';
 }
 
-ul li:hover, .collection-name:hover {
+ul li:hover, ul li a:hover, .collection-name:hover {
   text-decoration: underline;
-  color: #F2481D;
+  color: #A9C67C;
   transition: color 0.5s;
 }
 
-.collection-name {
-  margin: 0 0 10px 10px;
+a.collection-name {
+  margin-left: 20px;
+  color: rgb(200, 200, 200);
   cursor: pointer;
   transition: color 0.5s;
 }
 
-.collection ul {
+.collection ul, .similar-films ul{
   display: flex;
+  margin-top: 20px;
 }
 
-.collection ul li {
+.similar-films ul {
+  justify-content: space-between;
+}
+
+.similar-films ul li, .collection ul li {
+  max-width: 15%;
+  min-width: 15%;
+}
+
+.collection ul li, .similar-films ul li {
   margin-right: 20px;
 }
 
-.collection figure figcaption {
+.collection figure figcaption, .similar-films figure figcaption {
   font-size: 14px;
   cursor: pointer;
   text-align: center;
 }
 
-.collection figure img {
+.collection figure img, .similar-films figure img {
   width: 100px;
   height: 150px;
   margin: 0 auto;
   display: block;
+}
+
+.video-container {
+  width: 500px;
+  height: 350px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 100%;
 }

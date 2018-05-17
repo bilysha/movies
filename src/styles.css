@@ -23,6 +23,7 @@ time, mark, audio, video {
 }
 * {
   box-sizing: border-box;
+  outline: 0;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -49,8 +50,9 @@ table {
 }
 
 a{
+  cursor: pointer;
   text-decoration: none;
-  color: #fff;
+  color: rgb(200, 200, 200);
 }
 
 html,

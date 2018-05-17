@@ -11,13 +11,12 @@ export class RequestService {
   }
 
   uploadGenres() {
-    console.log('Uploading genres ... ');
     return this.http.get('https://api.themoviedb.org/3/genre/movie/list?language=en-US&api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
     .toPromise();
   }
 
-  sendRequest(filter: String) {
-    return this.http.get('https://api.themoviedb.org/3/movie/' + filter + '?page=1&language=en-US&api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
+  uploadList(filter: String, page: Number) {
+    return this.http.get('https://api.themoviedb.org/3/movie/' + filter + '?page=' + page + '&language=en-US&api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
     .toPromise();
   }
 
@@ -36,9 +35,13 @@ export class RequestService {
     .toPromise();
   }
 
-  uploadCompany(id: Number) {
-    return this.http.get('https://api.themoviedb.org/3/company/' + id + '?api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
+  uploadSimilarFilms(id: Number) {
+    return this.http.get('https://api.themoviedb.org/3/movie/' + id + '/recommendations?language=en-US&api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
     .toPromise();
   }
 
+  uploadByGenre(id: Number, page: Number) {
+    return this.http.get('https://api.themoviedb.org/3/genre/' + id + '/movies?page=' + page + '&sort_by=created_at.asc&include_adult=false&language=en-US&api_key=07dc8f6435c41ca3ef4a46c9a0f91344')
+    .toPromise();
+  }
 }

@@ -1,15 +1,15 @@
 <section>
-    <p class="title" (click)="openFilm(film.id)">{{film.title}}</p>
+    <a class="title" routerLink="/detail/{{film.id}}">{{film.title}}</a>
     <article class="film-body">
-        <img src="https://image.tmdb.org/t/p/w200{{film.poster_path}}">
+        <img src="{{film.poster_path}}">
         <article class="film-info">
           <p>{{film.overview}}</p>
           <p>Release : {{film.release_date}}</p>
-          <article class="genres">
+          <article class="genres" *ngIf="film.genre_ids.length">
             <p>Genres : </p>
             <ul>
               <li *ngFor="let genre of film.genre_ids">
-                {{genre}}
+                <a href="genres/{{genre.id}}/page/1">{{genre.name}}</a>
               </li>
             </ul>
           </article>

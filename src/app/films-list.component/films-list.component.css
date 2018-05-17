@@ -1,1 +1,62 @@
+nav {
+  background-color: rgb(30, 30, 30);
+  border: 2px solid rgb(20, 20, 20);
+}
 
+nav ul {
+  width: max-content;
+  margin: 0 auto;
+}
+
+nav ul li{
+  display: inline-block;
+  padding: 10px;
+  background-color: rgb(20, 20, 20);
+  color: rgb(200, 200, 200);
+  margin: 5px 1px;
+}
+
+nav ul li.many-pages {
+  padding: 10px 40px;
+}
+nav ul li:not(.many-pages) {
+  cursor: pointer;
+}
+
+nav ul li:not(.many-pages):hover {
+  color: #A9C67C;
+}
+
+nav ul li.active {
+  background-color: #A9C67C;
+  color: rgb(20, 20, 20);
+}
+
+.buttons-container {
+  margin-top: -20px;
+  background-color: #2e2e2e;
+  margin-bottom: 20px;
+  border: 2px solid rgb(20, 20, 20);
+  background-color: rgb(30, 30, 30);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons-container a {
+  font-size: 18px;
+  border: none;
+  padding: 10px 30px;
+  background-color: rgb(30, 30, 30);
+  color: rgb(200, 200, 200);
+  cursor: pointer;
+}
+
+.buttons-container a:not(.active):hover {
+  background-color: rgb(30, 30, 30);
+  color: #A9C67C;
+}
+
+.buttons-container a.active {
+  background-color: rgb(20, 20, 20);
+  color: #fff;
+}

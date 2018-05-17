@@ -1,26 +1,24 @@
-<p style="color: #fff" *ngIf="isEmptyFilm">Loading information ... </p>
+<p style="color: #fff" *ngIf="isEmptyFilm">Loading film information ... </p>
 <section *ngIf="!isEmptyFilm">
 
   <article>
-    <p class="title">{{film.title}}</p>
+    <p class="title"><a href="{{film.homepage}}" target="blank">{{film.title}}</a></p>
   </article>
 
   <article class="common-information">
       <p class="subtitle">{{film.tagline}}</p>
-      <img src="https://image.tmdb.org/t/p/original{{film.backdrop_path}}">
+      <img src="{{film.backdrop_path}}">
       <div class="votes">
         <p>{{film.vote_average}} / 10 ( {{film.vote_count}} votes total )</p>
       </div>
       <p class="overview">{{film.overview}}</p>
   </article>
 
-  <article class="companies">
-    <p class="subtitle">Companies : </p>
-    <ul>
-      <li *ngFor="let company of film.production_companies" (click)="openCompany(company.id)">
-        {{company.name}}
-      </li>
-    </ul>
+  <article *ngIf="!isEmptyVideos">
+    <p class="subTitle">{{videoName}}</p>
+    <div class="video-container">
+      ​<iframe [src]="videoUrl | safe" frameborder="0" allowfullscreen></iframe>
+    </div>
   </article>
 
   <article class="collection" *ngIf="film.belongs_to_collection">
@@ -29,18 +27,47 @@
     </div>
     <div *ngIf="!isEmptyCollection">
       <p class="subtitle">Collection : </p>
-      <p class="collection-name" (click)="openCollection(collection.id)">{{collection.name}} : </p>
+      <a class="collection-name" routerLink="/collection/{{collection.id}}">{{collection.name}} : </a>
       <ul>
-        <li *ngFor="let part of collection.parts">
+        <li *ngFor="let part of collection.parts | slice:0:5">
           <figure>
-            <img src="https://image.tmdb.org/t/p/w200{{part.poster_path}}">
-            <figcaption (click)="openFilm(part.id)">
-              {{part.title}}
+            <img src="{{part.poster_path}}">
+            <figcaption>
+              <a routerLink="/detail/{{part.id}}">{{part.title}}</a>
               </figcaption>
           </figure>
         </li>
       </ul>
     </div>
+  </article>
+
+  <article class="companies">
+    <p class="subtitle">Companies : </p>
+    <p *ngIf="film.production_companies.length === 0">
+      Sorry, we don't know what companies taken (or will take) part in the filming.
+    </p>
+    <ul>
+      <li *ngFor="let company of film.production_companies">
+        {{company.name}}
+      </li>
+    </ul>
+  </article>
+
+  <article class="similar-films" *ngIf="!isEmptySimilar">
+    <p class="subtitle">Recomendations : </p>
+    <p *ngIf="similarFilms.length === 0">
+      Sorry, we don't have any recomendations for this film.
+    </p>
+    <ul>
+        <li *ngFor="let film of similarFilms | slice:0:5">
+          <figure>
+            <img src="https://image.tmdb.org/t/p/w200{{film.poster_path}}">
+            <figcaption>
+              <a routerLink="/detail/{{film.id}}">{{film.title}}</a>
+              </figcaption>
+          </figure>
+        </li>
+      </ul>
   </article>
 
 </section>

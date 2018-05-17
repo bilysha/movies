@@ -2,19 +2,24 @@
   <div class="content">
     <header>
       <div class="center">
-        <a routerLink="popular"><img src="./resourses/logo.gif" alt="site logotip">F<span>I</span>lms<span>y</span></a>
+        <a routerLink="popular/page/1">
+          <img src="./resourses/logo.gif" alt="site logotip">F<span>I</span>lms<span>y</span>
+        </a>
+
       </div>
     </header>
     <main class="center">
-      <genres-list [genres]="genres"></genres-list>
-      <div class="films-container">
-        <router-outlet></router-outlet>
-      </div>
+      <section class="main-content">
+        <genres-list [genres]="genres"></genres-list>
+        <div class="films-container">
+          <router-outlet></router-outlet>
+        </div>
+      </section>
     </main>
   </div>
 <footer>
   <div class="center clearfix">
-    <p>Footer</p>
+    <p>Thanks for movies to <a href="https://www.themoviedb.org/" target="blank">MDB</a></p>
   </div>
 </footer>
 </div>
