@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { RequestService } from '../services/request.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 
 @Component({
@@ -13,6 +13,6 @@ export class GenresListComponent {
 
   @Input() genres: any;
 
-  constructor(private storage: StorageService) {}
+  constructor() {}
 
 }

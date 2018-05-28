@@ -10,6 +10,7 @@ import { GenresListComponent } from './genres-list.conponent/genres-list.conpone
 import { FilmsListComponent } from './films-list.component/films-list.component';
 import { FilmItemComponent } from './film-item.component/film-item.component';
 import { FilmDetailComponent } from './film-detail.component/film-detail.component';
+import { LoaderComponent } from './loader.component/loader.component';
 
 import { RequestService } from './services/request.service';
 import { StorageService } from './services/storage.service';
@@ -23,6 +24,7 @@ import { SafePipe } from './pipes/safe.pipe';
     FilmsListComponent,
     FilmItemComponent,
     FilmDetailComponent,
+    LoaderComponent,
     SafePipe
   ],
   imports: [
@@ -30,6 +32,8 @@ import { SafePipe } from './pipes/safe.pipe';
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
+      {path: 'favorite/page/:page', component: FilmsListComponent},
+      {path: 'search/:query/page/:page', component: FilmsListComponent},
       {path: 'genres/:genreId/page/:page', component: FilmsListComponent},
       {path: ':filter/page/:page', component: FilmsListComponent},
       {path: 'top_rated', component: FilmsListComponent},
@@ -45,4 +49,6 @@ import { SafePipe } from './pipes/safe.pipe';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

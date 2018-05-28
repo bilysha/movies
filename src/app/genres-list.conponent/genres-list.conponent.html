@@ -1,9 +1,9 @@
-<p *ngIf="!genres.length" style="color: #fff">Loading genres ... </p>
+<loader *ngIf="!genres.length" [title]="'genres'"></loader>
 <article *ngIf="genres.length">
   <p>Genres : </p>
   <ul  *ngIf="genres.length">
-    <li *ngFor="let genre of genres" [ngClass]="{'active': activegenre === genre.id}">
-      <a routerLink="/genres/{{genre.id}}/page/1">{{genre.name}}</a>
+    <li *ngFor="let genre of genres" [ngClass]="{'active': activeGenre === genre.id}">
+      <a routerLink="/genres/{{genre.id}}/page/1" routerLinkActive="active">{{genre.name}}</a>
     </li>
   </ul>
 </article>

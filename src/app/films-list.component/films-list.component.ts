@@ -14,11 +14,13 @@ export class FilmsListComponent {
 
   @Output() notify: EventEmitter<number> = new EventEmitter<number>();
 
-  type: String = 'Popular';
   films: any;
   genres: any;
   totalPages: number;
+  totalResults: number;
   activePage: number;
+  favorites: any;
+  searchResults: Number;
 
   title: string;
 
@@ -26,28 +28,14 @@ export class FilmsListComponent {
   showFirstPart: boolean;
   showSecondPart: boolean;
 
-  filters: any;
-
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private requestService: RequestService,
               private storage: StorageService
             ) {
     this.films = [];
-    this.filters = [
-      {
-        name: 'Popular',
-        key: 'popular'
-      },
-      {
-        name: 'Top rated',
-        key: 'top_rated'
-      },
-      {
-        name: 'Upcoming',
-        key: 'upcoming'
-      }
-    ];
+    this.favorites = [];
+    this.searchResults = 0;
   }
 
   ngOnInit() {
@@ -57,11 +45,29 @@ export class FilmsListComponent {
       let filter;
       const page = params['page'];
 
-      if (this.activatedRoute.snapshot.url[0].path === 'genres') {
-        filter = params['genreId'];
-      }
-      else {
-        filter = params['filter'];
+      const firstParam = this.activatedRoute.snapshot.url[0].path;
+
+      switch (firstParam) {
+        case 'favorite':
+          filter = 'favorite';
+          this.title = 'favorite';
+          document.title = 'Filmsy: favorite';
+          break;
+        case 'search':
+          filter = params['query'];
+          this.title = 'search';
+          document.title = 'Search: ' + filter;
+          break;
+        case 'genres':
+          filter = params['genreId'];
+          this.title = filter;
+          document.title = 'Filmsy: ' + filter;
+          break;
+        default:
+          filter = params['filter'];
+          this.title = filter;
+          document.title = 'Filmsy: ' + filter;
+          break;
       }
 
       const films = this.storage.getFilms(filter, page);
@@ -74,32 +80,62 @@ export class FilmsListComponent {
           originalPage = page / 2 + 0.5;
         }
 
-        if (this.activatedRoute.snapshot.url[0].path === 'genres') {
-          this.requestService.uploadByGenre(filter, originalPage)
-          .then(res => this.parseRequest(res.json(), page, filter, originalPage));
+        switch (firstParam) {
+          case 'favorite':
+            this.films = [];
+            this.favorites = this.storage.getFavorite();
+            this.totalResults = this.favorites.length;
+            for (let i = 0; i < this.favorites.length; i++) {
+              this.requestService.uploadFilm(this.favorites[i])
+              .then(res => this.films.push(res.json()));
+            }
+            break;
+          case 'search':
+            this.requestService.findFilms(filter, originalPage)
+            .then(res => this.parseRequest(res.json(), page, filter, originalPage));
+            break;
+          case 'genres':
+            this.requestService.uploadByGenre(filter, originalPage)
+            .then(res => this.parseRequest(res.json(), page, filter, originalPage));
+            break;
+          default:
+            this.requestService.uploadList(filter, originalPage)
+            .then(res => this.parseRequest(res.json(), page, filter, originalPage));
+            break;
         }
-        else {
-          this.requestService.uploadList(filter, originalPage)
-          .then(res => this.parseRequest(res.json(), page, filter, originalPage));
-        }
+
       }
       else {
         this.films = films;
+        this.totalPages = this.storage.getTotalPages(filter);
+        this.totalResults = this.storage.getTotalResults(filter);
+        this.pagesControl(+page);
       }
-
-      this.pagesControl(+page);
 
     });
   }
 
   parseRequest(res: any, page: number, filter: string, originalPage: number) {
-    this.totalPages = res.total_pages * 2;
-    this.storage.setFilms(filter, originalPage, res.results);
+    this.storage.setFilms(filter, originalPage, res.results, res.total_pages * 2, res.total_results);
     this.films = this.storage.getFilms(filter, page);
+    this.totalPages = this.storage.getTotalPages(filter);
+    this.totalResults = this.storage.getTotalResults(filter);
+    this.pagesControl(+page);
   }
 
   pagesControl(page: number) {
     this.activePage = +page;
+    this.possiblePages = [];
+    this.showFirstPart = false;
+    this.showSecondPart = false;
+
+    if (this.totalPages < 10) {
+      for (let i = 1; i < this.totalPages; i++) {
+        this.possiblePages.push(i);
+      }
+      return;
+    }
+
     if (this.activePage < 5) {
       this.showFirstPart = false;
       this.showSecondPart = true;
@@ -133,13 +169,23 @@ export class FilmsListComponent {
   }
 
   setPage(page: number) {
-    let filter = this.activatedRoute.snapshot.url[0].path;
-    if (filter === 'genres') {
-      filter = this.activatedRoute.snapshot.url[1].path;
-      this.router.navigate(['genres', filter, 'page', page]);
-    }
-    else {
-      this.router.navigate([filter, 'page', page]);
+    const filter = this.activatedRoute.snapshot.url[0].path;
+
+    switch (filter) {
+      case 'genres': {
+        const genreId = this.activatedRoute.snapshot.url[1].path;
+        this.router.navigate(['genres', genreId, 'page', page]);
+        break;
+      }
+      case 'search': {
+        const query = this.activatedRoute.snapshot.url[1].path;
+        this.router.navigate(['search', query, 'page', page]);
+        break;
+      }
+      default: {
+        this.router.navigate([filter, 'page', page]);
+        break;
+      }
     }
   }
 

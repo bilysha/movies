@@ -7,7 +7,13 @@ export class StorageService {
   films: any;
   activeGenre: number;
 
+  favoriteMovies: any;
+
   constructor() {
+    this.favoriteMovies = localStorage.getItem('favorite') || [];
+    if (this.favoriteMovies.length > 0) {
+      this.favoriteMovies = JSON.parse(this.favoriteMovies);
+    }
     this.genres = [];
     this.films = {'popular': {},
                   'top_rated': {},
@@ -24,11 +30,11 @@ export class StorageService {
     return this.genres;
   }
 
-  setFilms(filter: string, page: number, list: any) {
-    console.log(arguments);
+  setFilms(filter: string, page: number, list: any, totalPages: number, totalResults: number) {
     this.films[filter][(page * 2 - 1).toString()] = list.slice(0, 10);
     this.films[filter][(page * 2).toString()] = list.slice(10, 20);
-    console.log(this.films);
+    this.films[filter]['totalPages'] = totalPages;
+    this.films[filter]['totalResults'] = totalResults;
   }
 
   getFilms(filter: string, page: number) {
@@ -38,11 +44,34 @@ export class StorageService {
     return this.films[filter][page.toString()];
   }
 
+  getTotalPages(filter: string) {
+    return this.films[filter]['totalPages'] || 0;
+  }
+
+  getTotalResults(filter: string) {
+    return this.films[filter]['totalResults'] || 0;
+  }
+
   setActiveGenre(id: number) {
     this.activeGenre = id;
   }
 
   getActiveGenre() {
     return this.activeGenre;
+  }
+
+  getFavorite() {
+    return this.favoriteMovies;
+  }
+
+  updateFavorite(id: Number) {
+    const index = this.favoriteMovies.indexOf(id);
+    if (index < 0) {
+      this.favoriteMovies.push(id);
+    }
+    else {
+      this.favoriteMovies.splice(index, 1);
+    }
+    localStorage.setItem('favorite', JSON.stringify(this.favoriteMovies));
   }
 }

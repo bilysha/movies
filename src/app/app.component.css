@@ -16,7 +16,7 @@
 header,
 footer {
   height: 50px;
-  background-color: #000;
+  background-color: #464547;
   color: #fff;
   font-size: 24px;
   line-height: 50px;
@@ -30,36 +30,174 @@ footer {
   margin-top: 20px;
 }
 
+footer p {
+  color: #fff;
+}
+
+footer p a {
+  font-weight: bold;
+}
+
+header a {
+  float: left;
+}
+
 header a img {
-  width: 24px;
-  height: 24px;
-  margin-right: 20px;
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
   cursor: pointer;
 }
 
-header a span {
-  color: #A9C67C;
+.home-page {
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
+  fill: #fff;
+}
+
+.home-page:hover {
+  fill: #39C2D7;
+}
+
+footer p a {
+  color: #39C2D7;
+}
+
+header .search-container {
+  position: relative;
+  float: right;
+  display: flex;
+  z-index: 1;
+}
+
+.search-container input {
+  background-color: #fff;
+  color: #464547;
+  padding: 5px 15px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  min-width: 250px;
+}
+
+.search-results {
+  box-shadow: 0px 0px 5px 1px #39C2D7;
+  background-color: #fff;
+  color: #464547;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.search-results ul li img {
+  width: 50px;
+  float: left;
+  margin-right: 10px;
+}
+
+.search-results ul li:hover {
+  background-color: #464547;
+  color: #fff;
+}
+.search-results ul li {
+  padding: 15px;
+  cursor: pointer;
+}
+
+.search-container ul li:not(:last-child) {
+  border-bottom: 1px solid #c8c8c8;
+}
+
+.search-container ul li:nth-child(5) {
+  text-align: right;
+}
+
+.search-container .search-button {
+  width: 20px;
+  height: 20px;
+  margin-top: 12px;
+  margin-left: 15px;
+  fill: #fff;
+  cursor: pointer;
+}
+
+.search-container .search-button:hover {
+  fill: #39C2D7;
 }
 
 .main-content {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-genres-list {
-  width: 20%;
-  background-color: rgb(30, 30, 30);
-  border: 2px solid rgb(20, 20, 20);
-  border-right: none;
+.category-container, .genres-container, .films-container {
+  background-color: #fff;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+  border-collapse: collapse;
+}
+
+.category-container {
+  margin-bottom: 20px;
+}
+
+.category-container, .genres-container {
+  padding: 10px 0;
+}
+
+.sidebar {
+  min-width: 20%;
+  max-width: 20%;
   height: max-content;
-  position: sticky;
-  top: 0;
+}
+
+.sidebar article p {
+  font-size: 24px;
+  margin: 10px;
+  font-weight: bold;
+  color: #39C2D7;
+}
+
+.sidebar ul {
+  margin: 10px 0;
+}
+
+.sidebar ul li a{
+  padding-left: 20px;
+}
+
+.sidebar ul li, ul li a {
+  width: 100%;
+}
+.sidebar ul li a{
+  display: block;
+  cursor: pointer;
+  transition: color 0.5s;
+  line-height: 24px;
+}
+
+.sidebar ul li a:before {
+  content: '-';
+  margin-right: 5px;
+}
+
+.sidebar ul li a:hover {
+  color: #39C2D7;
+  background-color: #464547;
+  transition: color 0.5s;
+}
+
+.sidebar .active {
+  border-right: 5px solid #39C2D7;
 }
 
 .films-container {
-  width: 80%;
-  background-color: rgb(20, 20, 20);
+  min-width: 78%;
+  max-width: 78%;
   padding: 20px 0;
-  font-family: 'Cabin', sans-serif;
 }
 
 footer {

@@ -12,27 +12,33 @@ import { StorageService } from '../services/storage.service';
 export class FilmItemComponent {
   @Input() film: any;
   genres = [];
+  favoriteMovies: any;
+  isFavorite: Boolean = false;
 
   constructor(private router: Router,
               private requestService: RequestService,
               private storage: StorageService
-            ) {}
+            ) {
+    this.favoriteMovies = storage.getFavorite();
+  }
 
   ngOnInit() {
     this.genres = this.storage.getGenres();
+    if (!this.film.genres) {
+      this.film.genres = this.film.genre_ids;
+    }
     if (this.genres.length === 0) {
       this.requestService.uploadGenres()
       .then(res => this.genres = res.json().genres)
       .then(() => this.parseGenres());
     }
-    if (typeof this.film.parsed == 'undefined') {
+    if (typeof this.film.parsed === 'undefined') {
       if (!this.film.poster_path) {
         this.film.poster_path = 'resourses/no-photo-14.jpg';
       }
       else {
         this.film.poster_path = 'https://image.tmdb.org/t/p/w200' + this.film.poster_path;
       }
-      this.film.parsed = true;
     }
 
     if (this.film.overview) {
@@ -50,15 +56,17 @@ export class FilmItemComponent {
 
     this.parseGenres();
 
+    this.setFavoriteState();
+
   }
 
   parseGenres() {
-    for (let j = 0; j < this.film.genre_ids.length; j++) {
+    for (let j = 0; j < this.film.genres.length; j++) {
       for (let k = 0; k < this.genres.length; k++) {
-        if (this.film.genre_ids[j] === this.genres[k].id) {
-          this.film.genre_ids[j] = {};
-          this.film.genre_ids[j].id = this.genres[k].id;
-          this.film.genre_ids[j].name = this.genres[k].name;
+        if (this.film.genres[j] === this.genres[k].id) {
+          this.film.genres[j] = {};
+          this.film.genres[j].id = this.genres[k].id;
+          this.film.genres[j].name = this.genres[k].name;
           break;
         }
       }
@@ -96,4 +104,17 @@ export class FilmItemComponent {
     this.film.parsed = true;
   }
 
+  setFavoriteState() {
+    if (this.favoriteMovies.indexOf(this.film.id) < 0) {
+      this.isFavorite = false;
+    }
+    else {
+      this.isFavorite = true;
+    }
+  }
+
+  toggleFavorite(id: Number) {
+    this.storage.updateFavorite(id);
+    this.setFavoriteState();
+  }
 }

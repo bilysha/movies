@@ -7,6 +7,5 @@
   </div>
   <p class="subtitle">Overview : </p>
   <p class="overview">{{collection.overview}}</p>
-  <p class="subtitle">Films : </p>
   <film-item *ngFor="let film of collection.parts" [film]="film"></film-item>
 </section>

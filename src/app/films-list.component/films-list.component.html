@@ -1,15 +1,15 @@
-<article class="buttons-container">
-    <a *ngFor="let filter of filters"[ngClass]="{'active':filter.key === title}" routerLink="/{{filter.key}}/page/1">{{filter.name}}</a>
-  </article>
+<p class="total-results">Total movies : <span>{{totalResults}}</span></p>
 
 <ul>
   <li *ngFor="let film of films">
-    <film-item  [film]="film"></film-item>
+    <film-item [film]="film"></film-item>
   </li>
 </ul>
 
+<loader *ngIf="films.length === 0" [title]="title +' films'"></loader>
+
 <nav *ngIf="films.length > 0">
-  <ul>
+  <ul *ngIf="totalPages && totalPages != 0">
     <li (click)="setPage(1)" [ngClass]="{'active' : activePage === 1 }">
       1
     </li>

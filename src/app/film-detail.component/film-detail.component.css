@@ -1,6 +1,7 @@
 .title {
   font-size: 24px;
-  color: #fff;
+  font-weight: bold;
+  text-align: center;
 }
 
 article {
@@ -8,19 +9,37 @@ article {
   padding: 0 20px;
   padding-bottom: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #A9C67C;
+  border-bottom: 1px solid #c8c8c8;
   font-size: 20px;
   line-height: 24px;
-  font-family: 'Cabin', sans-serif;
+}
+
+article p i {
+  margin-left: 10px;
+  float: right;
+  font-size: 18px;
+}
+
+img {
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+  border-collapse: collapse;
 }
 
 .subtitle {
   font-size: 24px;
   margin-bottom: 10px;
+  transition: color 0.5s;
+}
+
+.overview {
+  text-align: justify;
+  padding-right: 20px;
 }
 
 .common-information img {
   width: 100%;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+  border-collapse: collapse;
 }
 
 .votes p {
@@ -30,7 +49,6 @@ article {
 
 ul li {
   font-size: 18px;
-  line-height: 24px;
   margin-left: 10px;
   cursor: pointer;
   transition: color 0.5s;
@@ -41,14 +59,12 @@ ul li {
 }
 
 ul li:hover, ul li a:hover, .collection-name:hover {
-  text-decoration: underline;
-  color: #A9C67C;
+  color: #39C2D7;
   transition: color 0.5s;
 }
 
 a.collection-name {
   margin-left: 20px;
-  color: rgb(200, 200, 200);
   cursor: pointer;
   transition: color 0.5s;
 }
@@ -56,6 +72,25 @@ a.collection-name {
 .collection ul, .similar-films ul{
   display: flex;
   margin-top: 20px;
+}
+
+article:nth-child(3) p:not(.subtitle) {
+  margin-top: 10px;
+}
+article:not(:first-child):not(:nth-child(2)) .subtitle {
+  cursor: pointer;
+}
+article:not(:first-child):not(:nth-child(2)) .subtitle:hover {
+  color: #39C2D7;
+  transition: color 0.5s;
+}
+article:not(:first-child):not(:nth-child(2)) {
+  max-height: 38px;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+article:not(:first-child):not(:nth-child(2)).opened {
+  max-height: 500px;
 }
 
 .similar-films ul {
@@ -85,7 +120,7 @@ a.collection-name {
 }
 
 .video-container {
-  width: 500px;
+  width: 600px;
   height: 350px;
   margin: 0 auto;
   margin-top: 20px;
@@ -94,4 +129,59 @@ a.collection-name {
 .video-container iframe {
   width: 100%;
   height: 100%;
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+}
+
+.overview-container {
+  display: flex;
+}
+
+.genres-container, .casts-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.genres-container ul li, .casts-container ul li {
+  display: inline-block;
+}
+
+.genres-container ul li:before, .casts-container ul li:before:not(:last-child) {
+  content: '-';
+}
+
+.genres-container ul li:not(:last-child):after, .casts-container ul li:not(:last-child):after {
+  content: ',';
+}
+
+.genres-container ul li:last-child:after, .casts-container ul li:last-child:after {
+  content: ';';
+}
+
+article p:not(.subtitle) {
+  margin-left: 20px;
+}
+
+.casts-container ul li:hover .tooltip {
+  display: block;
+}
+
+.casts-container ul li .tooltip p {
+  margin-left: 0;
+  text-align: center;
+}
+
+.tooltip {
+  max-width: 120px;
+  display: none;
+  padding: 10px;
+  position: absolute;
+  box-shadow: 0px 0px 5px 1px #39C2D7;
+  background-color: #fff;
+}
+
+.tooltip img {
+  width: 100px;
+  display: block;
+  margin: 0 auto;
 }

@@ -23,7 +23,6 @@ export class FilmsCollectionComponent {
 
   ngOnInit() {
     const collectionId: any = this.activatedRoute.snapshot.url[1];
-    console.log(collectionId);
     this.requestService.uploadCollection(collectionId)
     .then(res => {
       this.collection = res.json();

@@ -1,6 +1,7 @@
-<p style="color: #fff" *ngIf="isEmptyFilm">Loading film information ... </p>
-<section *ngIf="!isEmptyFilm">
+<loader *ngIf="isEmptyFilm" [title]="'film detail'"></loader>
 
+
+<section *ngIf="!isEmptyFilm">
   <article>
     <p class="title"><a href="{{film.homepage}}" target="blank">{{film.title}}</a></p>
   </article>
@@ -14,19 +15,49 @@
       <p class="overview">{{film.overview}}</p>
   </article>
 
-  <article *ngIf="!isEmptyVideos">
-    <p class="subTitle">{{videoName}}</p>
+  <article [ngClass]="{ 'opened': isOpenedGeneral }">
+    <p (click)="openArticle('general')" class="subtitle">General info <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedGeneral, 'fa-caret-up': isOpenedGeneral}"></i> </p>
+    <div class="genres-container">
+      <p>Genres:</p>
+      <ul>
+        <li *ngFor="let genre of film.genres">
+          <a routerLink="/genres/{{genre.id}}/page/1">{{genre.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="casts-container" *ngIf="!isEmptyCasts">
+      <p>Casts: </p>
+      <ul>
+        <li *ngFor="let cast of casts | slice:0:3">
+          {{cast.name}}
+          <div class="tooltip">
+            <img src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}" />
+            <p>{{cast.character}}</p>
+          </div>
+        </li>
+        <li *ngIf="casts.length > 4">
+          ...
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="film.budget > 0">
+      <p>Budget: $ {{film.budget}} ;</p>
+    </div>
+    <p>Release: {{film.release_date}} ;</p>
+    <p>Popularity: {{film.popularity | number:'.0-0'}} .</p>
+  </article>
+
+  <article *ngIf="!isEmptyVideos" [ngClass]="{ 'opened': isOpenedTrailer }">
+    <p (click)="openArticle('trailer')" class="subtitle">Trailer <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedTrailer, 'fa-caret-up': isOpenedTrailer}"></i> </p>
+    <p>{{videoName}}</p>
     <div class="video-container">
       ​<iframe [src]="videoUrl | safe" frameborder="0" allowfullscreen></iframe>
     </div>
   </article>
 
-  <article class="collection" *ngIf="film.belongs_to_collection">
-    <div *ngIf="isEmptyCollection">
-      <p>Loading collection information ... </p>
-    </div>
+  <article class="collection" *ngIf="film.belongs_to_collection" [ngClass]="{ 'opened': isOpenedCollection }">
     <div *ngIf="!isEmptyCollection">
-      <p class="subtitle">Collection : </p>
+      <p (click)="openArticle('collection')" class="subtitle">Collection <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedCollection, 'fa-caret-up': isOpenedCollection}"></i> </p>
       <a class="collection-name" routerLink="/collection/{{collection.id}}">{{collection.name}} : </a>
       <ul>
         <li *ngFor="let part of collection.parts | slice:0:5">
@@ -41,11 +72,8 @@
     </div>
   </article>
 
-  <article class="companies">
-    <p class="subtitle">Companies : </p>
-    <p *ngIf="film.production_companies.length === 0">
-      Sorry, we don't know what companies taken (or will take) part in the filming.
-    </p>
+  <article class="companies" *ngIf="film.production_companies.length > 0" [ngClass]="{ 'opened': isOpenedCompanies }">
+    <p (click)="openArticle('companies')" class="subtitle">Companies <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedCompanies, 'fa-caret-up': isOpenedCompanies}"></i> </p>
     <ul>
       <li *ngFor="let company of film.production_companies">
         {{company.name}}
@@ -53,11 +81,8 @@
     </ul>
   </article>
 
-  <article class="similar-films" *ngIf="!isEmptySimilar">
-    <p class="subtitle">Recomendations : </p>
-    <p *ngIf="similarFilms.length === 0">
-      Sorry, we don't have any recomendations for this film.
-    </p>
+  <article class="similar-films" *ngIf="!isEmptySimilar" [ngClass]="{ 'opened': isOpenedRecomendations }">
+    <p (click)="openArticle('recomendations')" class="subtitle">Recomendations <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedRecomendations, 'fa-caret-up': isOpenedRecomendations}"></i> </p>
     <ul>
         <li *ngFor="let film of similarFilms | slice:0:5">
           <figure>
