@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   moduleId: module.id,
@@ -9,5 +10,11 @@ import { Component, Input } from '@angular/core';
 export class LoaderComponent {
 
   @Input() title: string;
+
+  cms: any;
+
+  constructor(private storage: StorageService) {
+    this.cms = this.storage.getLangFile();
+  }
 
 }

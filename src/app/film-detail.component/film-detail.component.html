@@ -10,15 +10,15 @@
       <p class="subtitle">{{film.tagline}}</p>
       <img src="{{film.backdrop_path}}">
       <div class="votes">
-        <p>{{film.vote_average}} / 10 ( {{film.vote_count}} votes total )</p>
+        <p>{{film.vote_average}} / 10 ( {{film.vote_count}} {{cms.totalVotes}} )</p>
       </div>
       <p class="overview">{{film.overview}}</p>
   </article>
 
-  <article [ngClass]="{ 'opened': isOpenedGeneral }">
-    <p (click)="openArticle('general')" class="subtitle">General info <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedGeneral, 'fa-caret-up': isOpenedGeneral}"></i> </p>
+  <article [ngClass]="{ 'opened': isOpenedGeneral }" class="general-container">
+    <p (click)="openArticle('general')" class="subtitle">{{cms.general}} <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedGeneral, 'fa-caret-up': isOpenedGeneral}"></i> </p>
     <div class="genres-container">
-      <p>Genres:</p>
+      <p>{{cms.genres}}:</p>
       <ul>
         <li *ngFor="let genre of film.genres">
           <a routerLink="/genres/{{genre.id}}/page/1">{{genre.name}}</a>
@@ -26,7 +26,7 @@
       </ul>
     </div>
     <div class="casts-container" *ngIf="!isEmptyCasts">
-      <p>Casts: </p>
+      <p>{{cms.casts}}: </p>
       <ul>
         <li *ngFor="let cast of casts | slice:0:3">
           {{cast.name}}
@@ -40,25 +40,23 @@
         </li>
       </ul>
     </div>
-    <div *ngIf="film.budget > 0">
-      <p>Budget: $ {{film.budget}} ;</p>
-    </div>
-    <p>Release: {{film.release_date}} ;</p>
-    <p>Popularity: {{film.popularity | number:'.0-0'}} .</p>
+    <p *ngIf="film.budget > 0">{{cms.budget}}: $ {{film.budget}} ;</p>
+    <p>{{cms.release}}: {{film.release_date}} ;</p>
+    <p>{{cms.popularity}}: {{film.popularity | number:'.0-0'}} .</p>
   </article>
 
-  <article *ngIf="!isEmptyVideos" [ngClass]="{ 'opened': isOpenedTrailer }">
-    <p (click)="openArticle('trailer')" class="subtitle">Trailer <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedTrailer, 'fa-caret-up': isOpenedTrailer}"></i> </p>
+  <article *ngIf="!isEmptyVideos" [ngClass]="{ 'opened': isOpenedTrailer }" class="trailer-container">
+    <p (click)="openArticle('trailer')" class="subtitle">{{cms.trailer}} <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedTrailer, 'fa-caret-up': isOpenedTrailer}"></i> </p>
     <p>{{videoName}}</p>
     <div class="video-container">
-      ​<iframe [src]="videoUrl | safe" frameborder="0" allowfullscreen></iframe>
+      ​<iframe [src]="videoUrl | safe" allowfullscreen></iframe>
     </div>
   </article>
 
-  <article class="collection" *ngIf="film.belongs_to_collection" [ngClass]="{ 'opened': isOpenedCollection }">
+  <article class="collection-container" *ngIf="film.belongs_to_collection" [ngClass]="{ 'opened': isOpenedCollection }">
     <div *ngIf="!isEmptyCollection">
-      <p (click)="openArticle('collection')" class="subtitle">Collection <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedCollection, 'fa-caret-up': isOpenedCollection}"></i> </p>
-      <a class="collection-name" routerLink="/collection/{{collection.id}}">{{collection.name}} : </a>
+      <p (click)="openArticle('collection')" class="subtitle">{{cms.collection}} <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedCollection, 'fa-caret-up': isOpenedCollection}"></i> </p>
+      <a class="collection-name" routerLink="/collection/{{collection.id}}">{{collection.name}}: </a>
       <ul>
         <li *ngFor="let part of collection.parts | slice:0:5">
           <figure>
@@ -72,8 +70,8 @@
     </div>
   </article>
 
-  <article class="companies" *ngIf="film.production_companies.length > 0" [ngClass]="{ 'opened': isOpenedCompanies }">
-    <p (click)="openArticle('companies')" class="subtitle">Companies <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedCompanies, 'fa-caret-up': isOpenedCompanies}"></i> </p>
+  <article class="companies-container" *ngIf="film.production_companies.length > 0" [ngClass]="{ 'opened': isOpenedCompanies }">
+    <p (click)="openArticle('companies')" class="subtitle">{{cms.companies}} <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedCompanies, 'fa-caret-up': isOpenedCompanies}"></i> </p>
     <ul>
       <li *ngFor="let company of film.production_companies">
         {{company.name}}
@@ -82,7 +80,7 @@
   </article>
 
   <article class="similar-films" *ngIf="!isEmptySimilar" [ngClass]="{ 'opened': isOpenedRecomendations }">
-    <p (click)="openArticle('recomendations')" class="subtitle">Recomendations <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedRecomendations, 'fa-caret-up': isOpenedRecomendations}"></i> </p>
+    <p (click)="openArticle('recomendations')" class="subtitle">{{cms.recomendations}} <i class="fas" [ngClass]="{'fa-caret-down': !isOpenedRecomendations, 'fa-caret-up': isOpenedRecomendations}"></i> </p>
     <ul>
         <li *ngFor="let film of similarFilms | slice:0:5">
           <figure>

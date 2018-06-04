@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RequestService } from '../services/request.service';
 import { StorageService } from '../services/storage.service';
@@ -9,16 +9,18 @@ import { StorageService } from '../services/storage.service';
   templateUrl: 'film-item.component.html',
   styleUrls: ['film-item.component.css']
 })
-export class FilmItemComponent {
+export class FilmItemComponent implements OnInit {
   @Input() film: any;
   genres = [];
   favoriteMovies: any;
   isFavorite: Boolean = false;
+  cms: any;
 
   constructor(private router: Router,
               private requestService: RequestService,
               private storage: StorageService
             ) {
+    this.cms = this.storage.getLangFile();
     this.favoriteMovies = storage.getFavorite();
   }
 
@@ -34,20 +36,18 @@ export class FilmItemComponent {
     }
     if (typeof this.film.parsed === 'undefined') {
       if (!this.film.poster_path) {
-        this.film.poster_path = 'resourses/no-photo-14.jpg';
-      }
-      else {
-        this.film.poster_path = 'https://image.tmdb.org/t/p/w200' + this.film.poster_path;
+        this.film.poster_path = './assets/img/no-photo-14.jpg';
+      } else {
+        this.film.poster_path = 'https://image.tmdb.org/t/p/w500' + this.film.poster_path;
       }
     }
 
     if (this.film.overview) {
-      if (this.film.overview.length > 300) {
-        this.film.overview = this.film.overview.slice(0, 300).concat('...');
+      if (this.film.overview.length > 200) {
+        this.film.overview = this.film.overview.slice(0, 200).concat('...');
       }
-    }
-    else {
-      this.film.overview = 'Sorry, this movie has no overview.';
+    } else {
+      this.film.overview = this.cms.noOverview;
     }
 
     if (!this.film.parsed) {
@@ -74,21 +74,7 @@ export class FilmItemComponent {
   }
 
   parseReleaseDate() {
-    const months = {
-      '01': 'January',
-      '02': 'Febrary',
-      '03': 'March',
-      '04': 'April',
-      '05': 'May',
-      '06': 'June',
-      '07': 'Jule',
-      '08': 'August',
-      '09': 'September',
-      '10': 'October',
-      '11': 'November',
-      '12': 'December',
-    };
-
+    const months = this.cms.months;
     let newReleaseDate;
 
     let day = this.film.release_date.slice(8, 10);
@@ -107,8 +93,7 @@ export class FilmItemComponent {
   setFavoriteState() {
     if (this.favoriteMovies.indexOf(this.film.id) < 0) {
       this.isFavorite = false;
-    }
-    else {
+    } else {
       this.isFavorite = true;
     }
   }

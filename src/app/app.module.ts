@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { FilmsCollectionComponent } from './films-collection.component/films-collection.component';
-import { GenresListComponent } from './genres-list.conponent/genres-list.conponent';
 import { FilmsListComponent } from './films-list.component/films-list.component';
 import { FilmItemComponent } from './film-item.component/film-item.component';
 import { FilmDetailComponent } from './film-detail.component/film-detail.component';
@@ -20,7 +19,6 @@ import { SafePipe } from './pipes/safe.pipe';
   declarations: [
     AppComponent,
     FilmsCollectionComponent,
-    GenresListComponent,
     FilmsListComponent,
     FilmItemComponent,
     FilmDetailComponent,
@@ -34,7 +32,9 @@ import { SafePipe } from './pipes/safe.pipe';
     RouterModule.forRoot([
       {path: 'favorite/page/:page', component: FilmsListComponent},
       {path: 'search/:query/page/:page', component: FilmsListComponent},
+      {path: 'genres/:genreId', component: FilmsListComponent},
       {path: 'genres/:genreId/page/:page', component: FilmsListComponent},
+      {path: ':filter', component: FilmsListComponent},
       {path: ':filter/page/:page', component: FilmsListComponent},
       {path: 'top_rated', component: FilmsListComponent},
       {path: 'latest', component: FilmsListComponent},

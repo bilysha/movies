@@ -15,19 +15,57 @@
 
 header,
 footer {
-  height: 50px;
   background-color: #464547;
   color: #fff;
-  font-size: 24px;
-  line-height: 50px;
 }
 
 header {
+  padding: 10px 0;
+}
+header .center {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings {
+  background-color: #fff;
   margin-bottom: 20px;
+}
+
+.settings .center {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.settings ul {
+  display: flex;
+}
+
+.settings ul li {
+  margin-left: 20px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 5px solid transparent;
+}
+
+.settings ul li:hover {
+  color: #39C2D7;
+}
+
+.settings ul li.active {
+  border-bottom-color: #39C2D7;
+}
+
+.settings ul li img {
+  margin-left: 10px;
 }
 
 footer {
   margin-top: 20px;
+  font-size: 24px;
+  line-height: 50px;
 }
 
 footer p {
@@ -38,21 +76,9 @@ footer p a {
   font-weight: bold;
 }
 
-header a {
-  float: left;
-}
-
-header a img {
-  width: 40px;
-  height: 40px;
-  margin-top: 5px;
-  cursor: pointer;
-}
-
 .home-page {
   width: 30px;
   height: 30px;
-  margin-top: 10px;
   fill: #fff;
 }
 
@@ -66,17 +92,14 @@ footer p a {
 
 header .search-container {
   position: relative;
-  float: right;
   display: flex;
-  z-index: 1;
 }
 
 .search-container input {
   background-color: #fff;
   color: #464547;
-  padding: 5px 15px;
   border: none;
-  margin-top: 10px;
+  padding: 0 10px;
   border-radius: 5px;
   min-width: 250px;
 }
@@ -90,6 +113,7 @@ header .search-container {
   width: 100%;
   font-size: 18px;
   line-height: 18px;
+  z-index: 1;
 }
 
 .search-results ul li img {
@@ -107,19 +131,18 @@ header .search-container {
   cursor: pointer;
 }
 
-.search-container ul li:not(:last-child) {
+.search-results ul li:not(:last-child) {
   border-bottom: 1px solid #c8c8c8;
 }
 
-.search-container ul li:nth-child(5) {
+.search-results ul li:nth-child(5) {
   text-align: right;
 }
 
 .search-container .search-button {
   width: 20px;
   height: 20px;
-  margin-top: 12px;
-  margin-left: 15px;
+  margin: 5px;
   fill: #fff;
   cursor: pointer;
 }
@@ -140,12 +163,13 @@ header .search-container {
   border-collapse: collapse;
 }
 
-.category-container {
+.category-container, .genres-container {
   margin-bottom: 20px;
+  padding-bottom: 10px;
 }
 
-.category-container, .genres-container {
-  padding: 10px 0;
+.category-container p, .genres-container p {
+  border-bottom: 1px solid #c8c8c8;
 }
 
 .sidebar {
@@ -156,7 +180,7 @@ header .search-container {
 
 .sidebar article p {
   font-size: 24px;
-  margin: 10px;
+  padding: 10px;
   font-weight: bold;
   color: #39C2D7;
 }
@@ -172,6 +196,7 @@ header .search-container {
 .sidebar ul li, ul li a {
   width: 100%;
 }
+
 .sidebar ul li a{
   display: block;
   cursor: pointer;
@@ -194,10 +219,16 @@ header .search-container {
   border-right: 5px solid #39C2D7;
 }
 
+.sidebar p i {
+  display: none;
+}
+
 .films-container {
   min-width: 78%;
   max-width: 78%;
   padding: 20px 0;
+  padding-bottom: 80px;
+  position: relative;
 }
 
 footer {
@@ -209,4 +240,89 @@ footer {
 
 footer p {
   float: right;
+}
+
+@media all and (min-width: 100px) and (max-width: 851px) {
+
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar, .category-container, .genres-container, .films-container {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar p i {
+    color: #39C2D7;
+    display: block;
+    float: right;
+  }
+
+  .category-container, .genres-container {
+    max-height: 45px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+  }
+
+  .category-container.opened {
+    max-height: 200px;
+  }
+
+  .genres-container.opened {
+    max-height: 600px;
+  }
+
+  .sidebar ul {
+    margin: 0;
+  }
+
+  .sidebar ul li a{
+    padding: 10px;
+    margin: 0 10px;
+    border-bottom: 5px solid transparent;
+  }
+
+  .sidebar ul li, ul li a {
+    width: max-content;
+  }
+
+  .sidebar ul li a:before {
+    content: '';
+    margin-right: 0;
+  }
+
+  .sidebar ul li a:hover {
+    color: #39C2D7;
+    background-color: transparent;
+    transition: color 0.5s;
+  }
+
+  .sidebar ul li a.active {
+    border-right: none;
+    border-bottom: 5px solid #39C2D7;
+  }
+
+  .category-container ul, .genres-container ul {
+    display: flex;
+  }
+
+  .category-container ul {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .genres-container ul{
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  @media all and (min-width: 100px) and (max-width: 420px) {
+
+    .search-container input {
+      min-width: 200px;
+    }
+
+  }
+
 }

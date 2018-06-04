@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { RequestService } from '../services/request.service';
@@ -10,7 +10,7 @@ import { StorageService } from '../services/storage.service';
   templateUrl: 'films-list.component.html',
   styleUrls: ['films-list.component.css']
 })
-export class FilmsListComponent {
+export class FilmsListComponent implements OnInit {
 
   @Output() notify: EventEmitter<number> = new EventEmitter<number>();
 
@@ -22,17 +22,22 @@ export class FilmsListComponent {
   favorites: any;
   searchResults: Number;
 
+  query: string;
+
   title: string;
 
   possiblePages;
   showFirstPart: boolean;
   showSecondPart: boolean;
 
+  cms: any;
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private requestService: RequestService,
               private storage: StorageService
             ) {
+    this.cms = this.storage.getLangFile();
     this.films = [];
     this.favorites = [];
     this.searchResults = 0;
@@ -43,7 +48,11 @@ export class FilmsListComponent {
       this.films = [];
       let originalPage;
       let filter;
-      const page = params['page'];
+      let page = params['page'];
+
+      if (!page) {
+        page = 1;
+      }
 
       const firstParam = this.activatedRoute.snapshot.url[0].path;
 
@@ -56,6 +65,7 @@ export class FilmsListComponent {
         case 'search':
           filter = params['query'];
           this.title = 'search';
+          this.query = filter;
           document.title = 'Search: ' + filter;
           break;
         case 'genres':
@@ -75,8 +85,7 @@ export class FilmsListComponent {
       if (!films) {
         if (page % 2 === 0) {
           originalPage = page / 2;
-        }
-        else {
+        } else {
           originalPage = page / 2 + 0.5;
         }
 
@@ -104,8 +113,7 @@ export class FilmsListComponent {
             break;
         }
 
-      }
-      else {
+      } else {
         this.films = films;
         this.totalPages = this.storage.getTotalPages(filter);
         this.totalResults = this.storage.getTotalResults(filter);
@@ -116,6 +124,7 @@ export class FilmsListComponent {
   }
 
   parseRequest(res: any, page: number, filter: string, originalPage: number) {
+    console.log(res);
     this.storage.setFilms(filter, originalPage, res.results, res.total_pages * 2, res.total_results);
     this.films = this.storage.getFilms(filter, page);
     this.totalPages = this.storage.getTotalPages(filter);
@@ -129,42 +138,38 @@ export class FilmsListComponent {
     this.showFirstPart = false;
     this.showSecondPart = false;
 
-    if (this.totalPages < 10) {
-      for (let i = 1; i < this.totalPages; i++) {
+    if (this.totalPages < 8) {
+      for (let i = 2; i < this.totalPages - 1; i++) {
         this.possiblePages.push(i);
       }
       return;
     }
 
-    if (this.activePage < 5) {
+    if (this.activePage <= 3) {
       this.showFirstPart = false;
       this.showSecondPart = true;
-      this.possiblePages = [2, 3, 4, 5];
+      this.possiblePages = [2, 3, 4];
       return;
-    }
-    else {
+    } else {
       this.showFirstPart = true;
     }
 
-    if (this.activePage > this.totalPages - 4) {
+    if (this.activePage > this.totalPages - 3) {
       this.showSecondPart = false;
       this.possiblePages = [
-        this.totalPages - 4,
         this.totalPages - 3,
         this.totalPages - 2,
-        this.totalPages - 1];
+        this.totalPages - 1
+      ];
       return;
-    }
-    else {
+    } else {
       this.showSecondPart = true;
     }
 
     this.possiblePages = [
-      this.activePage - 2,
       this.activePage - 1,
       this.activePage,
-      this.activePage + 1,
-      this.activePage + 2
+      this.activePage + 1
     ];
   }
 

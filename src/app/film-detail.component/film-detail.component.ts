@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import '../../shared/lang';
 import { DomSanitizer } from '@angular/platform-browser';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   moduleId: module.id,
@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: 'film-detail.component.html',
   styleUrls: ['film-detail.component.css']
 })
-export class FilmDetailComponent {
+export class FilmDetailComponent implements OnInit {
 
   film: any;
   collection: any;
@@ -34,11 +34,14 @@ export class FilmDetailComponent {
   isOpenedCompanies: Boolean;
   isOpenedRecomendations: Boolean;
 
+  cms: any;
 
   constructor(private requestService: RequestService,
               private router: Router,
-              private activatedRoute: ActivatedRoute
+              private activatedRoute: ActivatedRoute,
+              private storage: StorageService
               ) {
+    this.cms = this.storage.getLangFile();
     this.setDefolt();
   }
 
@@ -53,7 +56,7 @@ export class FilmDetailComponent {
         document.title = this.film.title;
         this.parseReleaseDate();
         if (!this.film.backdrop_path) {
-          this.film.backdrop_path = 'resourses/no-photo-13.jpg';
+          this.film.backdrop_path = './assets/img/no-photo-13.jpg';
         }
         else {
           this.film.backdrop_path = 'https://image.tmdb.org/t/p/original' + this.film.backdrop_path;
@@ -93,7 +96,7 @@ export class FilmDetailComponent {
             this.collection = res.json();
             for (let i = 0; i < this.collection.parts.length; i++) {
               if (!this.collection.parts[i].poster_path) {
-                this.collection.parts[i].poster_path = './resourses/no-photo-14.jpg';
+                this.collection.parts[i].poster_path = './assets/img/no-photo-14.jpg';
               }
               else {
                 this.collection.parts[i].poster_path = 'https://image.tmdb.org/t/p/w200' + this.collection.parts[i].poster_path;
@@ -145,20 +148,7 @@ export class FilmDetailComponent {
   }
 
   parseReleaseDate() {
-    const months = {
-      '01': 'January',
-      '02': 'Febrary',
-      '03': 'March',
-      '04': 'April',
-      '05': 'May',
-      '06': 'June',
-      '07': 'Jule',
-      '08': 'August',
-      '09': 'September',
-      '10': 'October',
-      '11': 'November',
-      '12': 'December',
-    };
+    const months = this.cms.months;
 
     let newReleaseDate;
 

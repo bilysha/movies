@@ -1,4 +1,16 @@
-<p class="total-results">Total movies : <span>{{totalResults}}</span></p>
+<p class="total-results">{{cms.totalMovies}} : <span>{{totalResults}}</span></p>
+
+<loader *ngIf="films.length === 0 && totalResults > 0" [title]="title +' films'"></loader>
+
+<p class="no-movies" *ngIf="title === 'favorite' && totalResults === 0">
+  {{cms.warning_1}} <span>{{title}}</span> {{cms.warning_1_1}}.
+  <br>
+  {{cms.warning_2}} <img src="./assets/img/like.png" /> {{cms.warning_2_1}}.
+</p>
+
+<p class="no-movies" *ngIf="title === 'search' && totalResults === 0">
+  {{cms.warning_3}} <span>" {{query}} "</span> {{cms.warning_3_1}}.
+</p>
 
 <ul>
   <li *ngFor="let film of films">
@@ -6,10 +18,8 @@
   </li>
 </ul>
 
-<loader *ngIf="films.length === 0" [title]="title +' films'"></loader>
-
-<nav *ngIf="films.length > 0">
-  <ul *ngIf="totalPages && totalPages != 0">
+<nav *ngIf="totalPages && totalPages != 0">
+  <ul>
     <li (click)="setPage(1)" [ngClass]="{'active' : activePage === 1 }">
       1
     </li>
@@ -22,7 +32,7 @@
     <li class="many-pages" *ngIf="showSecondPart">
       ...
     </li>
-    <li (click)="setPage(totalPages)" [ngClass]="{'active' : activePage === totalPages}" >
+    <li (click)="setPage(totalPages)" [ngClass]="{'active' : activePage === totalPages}">
       {{totalPages}}
     </li>
   </ul>

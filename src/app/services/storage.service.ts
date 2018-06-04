@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { eng } from './../../shared/eng';
+import { rus } from './../../shared/rus';
+
 @Injectable()
 export class StorageService {
 
@@ -9,7 +12,12 @@ export class StorageService {
 
   favoriteMovies: any;
 
+  engObj: any;
+  rusObj: any;
+
   constructor() {
+    this.engObj = eng;
+    this.rusObj = rus;
     this.favoriteMovies = localStorage.getItem('favorite') || [];
     if (this.favoriteMovies.length > 0) {
       this.favoriteMovies = JSON.parse(this.favoriteMovies);
@@ -19,7 +27,7 @@ export class StorageService {
                   'top_rated': {},
                   'upcoming': {}
                 };
-                this.activeGenre = -1;
+    this.activeGenre = -1;
   }
 
   setGenres(genres: any) {
@@ -68,10 +76,26 @@ export class StorageService {
     const index = this.favoriteMovies.indexOf(id);
     if (index < 0) {
       this.favoriteMovies.push(id);
-    }
-    else {
+    } else {
       this.favoriteMovies.splice(index, 1);
     }
     localStorage.setItem('favorite', JSON.stringify(this.favoriteMovies));
+  }
+
+  getLanguage() {
+    return localStorage.getItem('lang') || 'Russian';
+  }
+
+  setLanguage(lang: string) {
+    localStorage.setItem('lang', lang);
+  }
+
+  getLangFile() {
+    const lang = this.getLanguage();
+    if (lang === 'English') {
+      return this.engObj;
+    } else {
+      return this.rusObj;
+    }
   }
 }
